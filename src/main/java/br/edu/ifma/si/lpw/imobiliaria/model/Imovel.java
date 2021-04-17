@@ -6,25 +6,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Imovel {
+public class Imovel implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Length(max = 20)
     private String tipoDeImovel;
+    @Length(max = 100)
     private String endereco;
+    @Positive
     private Integer dormitorios;
+    @Positive
     private Integer banheiros;
+    @Positive
     private Integer suites;
     private BigDecimal metragem;
     private BigDecimal valorSugerido;
+    @Length(max = 200)
     private String observacoes;
 
     public Imovel() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -33,7 +42,6 @@ public class Imovel {
         this.id = id;
     }
 
-    @Length(max = 20)
     public String getTipoDeImovel() {
         return tipoDeImovel;
     }
@@ -42,7 +50,6 @@ public class Imovel {
         this.tipoDeImovel = tipoDeImovel;
     }
 
-    @Length(max = 200)
     public String getEndereco() {
         return endereco;
     }
@@ -91,7 +98,6 @@ public class Imovel {
         this.valorSugerido = valorSugerido;
     }
 
-    @Length(max = 200)
     public String getObservacoes() {
         return observacoes;
     }

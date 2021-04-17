@@ -3,27 +3,36 @@ package br.edu.ifma.si.lpw.imobiliaria.model;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Positive;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-public class Locacao {
+public class Locacao implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @OneToOne
     private Imovel imovel;
+    @ManyToOne
     private Cliente inquilino;
     private boolean ativo;
     private LocalDate inicioDonContrato;
     private LocalDate fimDonContrato;
+    @Positive
+    @Max(31)
     private Integer diaDoVencimento;
     private BigDecimal percentualDaMulta;
     private BigDecimal valorDoAluguel;
+    @Length(max = 200)
     private String observacoes;
 
     public Locacao() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
     }
@@ -32,7 +41,6 @@ public class Locacao {
         this.id = id;
     }
 
-    @OneToOne
     public Imovel getImovel() {
         return imovel;
     }
@@ -41,7 +49,6 @@ public class Locacao {
         this.imovel = imovel;
     }
 
-    @ManyToOne
     public Cliente getInquilino() {
         return inquilino;
     }
@@ -98,7 +105,6 @@ public class Locacao {
         this.valorDoAluguel = valorDoAluguel;
     }
 
-    @Length(max = 200)
     public String getObservacoes() {
         return observacoes;
     }

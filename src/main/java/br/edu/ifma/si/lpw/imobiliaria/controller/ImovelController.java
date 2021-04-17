@@ -1,13 +1,17 @@
 package br.edu.ifma.si.lpw.imobiliaria.controller;
 
-import br.edu.ifma.si.lpw.imobiliaria.repository.ImovelRepository;
+import br.edu.ifma.si.lpw.imobiliaria.service.ImovelService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/imoveis")
 public class ImovelController {
-    private final ImovelRepository imovelRepository;
+    private final ImovelService imovelService;
 
-    public ImovelController(ImovelRepository imovelRepository) {
-        this.imovelRepository = imovelRepository;
+    @Autowired
+    public ImovelController(ImovelService imovelService) {
+        this.imovelService = imovelService;
     }
 }
