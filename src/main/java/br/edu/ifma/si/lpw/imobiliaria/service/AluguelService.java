@@ -3,10 +3,11 @@ package br.edu.ifma.si.lpw.imobiliaria.service;
 import br.edu.ifma.si.lpw.imobiliaria.model.Aluguel;
 import br.edu.ifma.si.lpw.imobiliaria.repository.AluguelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,8 +19,8 @@ public class AluguelService {
         this.aluguelRepository = aluguelRepository;
     }
 
-    public List<Aluguel> todos() {
-        return aluguelRepository.findAll();
+    public Page<Aluguel> buscaCom(Pageable paginacao) {
+        return aluguelRepository.findAll(paginacao);
     }
 
     public Optional<Aluguel> buscaPor(Integer id) {

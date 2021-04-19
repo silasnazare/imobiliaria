@@ -3,6 +3,8 @@ package br.edu.ifma.si.lpw.imobiliaria.service;
 import br.edu.ifma.si.lpw.imobiliaria.model.Cliente;
 import br.edu.ifma.si.lpw.imobiliaria.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +20,8 @@ public class ClienteService {
         this.clienteRepository = clienteRepository;
     }
 
-    public List<Cliente> todos() {
-        return clienteRepository.findAll();
+    public Page<Cliente> buscaCom(Pageable paginacao) {
+        return clienteRepository.findAll(paginacao);
     }
 
     public Optional<Cliente> buscaPor(Integer id) {
@@ -28,6 +30,10 @@ public class ClienteService {
 
     public List<Cliente> buscaPor(String nome) {
         return clienteRepository.findByNomeContaining(nome);
+    }
+
+    public Page<Cliente> buscaPor(String nome, Pageable paginacao) {
+        return clienteRepository.findByNomeContaining(nome, paginacao);
     }
 
     @Transactional

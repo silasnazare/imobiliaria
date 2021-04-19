@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,10 +19,10 @@ public class Locacao implements Serializable {
     @OneToOne
     private Imovel imovel;
     @ManyToOne
-    private Cliente inquilino;
+    private Cliente cliente;
     private boolean ativo;
-    private LocalDate inicioDonContrato;
-    private LocalDate fimDonContrato;
+    private LocalDate inicioDoContrato;
+    private LocalDate fimDoContrato;
     @Positive
     @Max(31)
     private Integer diaDoVencimento;
@@ -49,12 +50,12 @@ public class Locacao implements Serializable {
         this.imovel = imovel;
     }
 
-    public Cliente getInquilino() {
-        return inquilino;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setInquilino(Cliente inquilino) {
-        this.inquilino = inquilino;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public boolean isAtivo() {
@@ -65,20 +66,20 @@ public class Locacao implements Serializable {
         this.ativo = ativo;
     }
 
-    public LocalDate getInicioDonContrato() {
-        return inicioDonContrato;
+    public LocalDate getInicioDoContrato() {
+        return inicioDoContrato;
     }
 
-    public void setInicioDonContrato(LocalDate inicioDonContrato) {
-        this.inicioDonContrato = inicioDonContrato;
+    public void setInicioDoContrato(LocalDate inicioDoContrato) {
+        this.inicioDoContrato = inicioDoContrato;
     }
 
-    public LocalDate getFimDonContrato() {
-        return fimDonContrato;
+    public LocalDate getFimDoContrato() {
+        return fimDoContrato;
     }
 
-    public void setFimDonContrato(LocalDate fimDonContrato) {
-        this.fimDonContrato = fimDonContrato;
+    public void setFimDoContrato(LocalDate fimDoContrato) {
+        this.fimDoContrato = fimDoContrato;
     }
 
     public Integer getDiaDoVencimento() {
@@ -111,5 +112,30 @@ public class Locacao implements Serializable {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Locacao)) {
+            return false;
+        }
+        Locacao other = (Locacao) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "br.edu.ifma.si.lpw.imobiliaria.model.Locacao[ id=" + id + " ]";
     }
 }
