@@ -11,9 +11,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.lang.reflect.Field;
+import java.net.URI;
 import java.util.Map;
 import java.util.Optional;
 
@@ -44,6 +46,13 @@ public class ImovelController {
         }
     }
 
+    @PostMapping
+    public ResponseEntity<Imovel> salva(@RequestBody @Valid Imovel imovel, UriComponentsBuilder builder) {
+        final Imovel imovelSalvo = imovelService.salva(imovel);
+        final URI uri = builder.path("/imoveis/{id}").buildAndExpand(imovelSalvo.getId()).toUri();
+        return ResponseEntity.created(uri).body(imovelSalvo);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Imovel> atualiza(@PathVariable Integer id, @RequestBody @Valid Imovel imovel) {
         Optional<Imovel> imovelOptional = imovelService.buscaPor(id);
@@ -58,7 +67,7 @@ public class ImovelController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Imovel> atualizaParcialmente(@PathVariable Integer id, @RequestBody @Valid Map<String, Object> campos) {
+    public ResponseEntity<Imovel> atualizaParcialmente(@PathVariable Integer id, @RequestBody Map<String, Object> campos) {
         Optional<Imovel> optional = imovelService.buscaPor(id);
         if (optional.isPresent()) {
             Imovel imovelAtual = optional.get();
@@ -78,5 +87,17 @@ public class ImovelController {
             Object novoValor = ReflectionUtils.getField(field, imovelOrigem);
             ReflectionUtils.setField(field, imovelDestino, novoValor);
         });
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> remove(@PathVariable Integer id) {
+        Optional<Imovel> imovelOptional = imovelService.buscaPor(id);
+        if (imovelOptional.isPresent()) {
+            imovelService.removePor(id);
+            return ResponseEntity.noContent().build();
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -1,15 +1,17 @@
 package br.edu.ifma.si.lpw.imobiliaria.model;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class Cliente implements Serializable {
+public class Inquilino implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,17 +20,17 @@ public class Cliente implements Serializable {
     @Length(min = 3, max = 200)
     private String nome;
     @NotBlank
-    @Length(max = 11)
+    @Length(min = 11, max = 11)
     private String cpf;
     @NotBlank
-    @Length(max = 15)
+    @Length(min = 4, max = 14)
     private String telefone;
-    @NotBlank
-    @Length(max = 30)
+    @Email
     private String email;
+    @DateTimeFormat
     private LocalDate dataDeNascimento;
 
-    public Cliente() {
+    public Inquilino() {
     }
 
     public Integer getId() {
@@ -89,10 +91,10 @@ public class Cliente implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cliente)) {
+        if (!(object instanceof Inquilino)) {
             return false;
         }
-        Cliente other = (Cliente) object;
+        Inquilino other = (Inquilino) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -101,6 +103,6 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "br.edu.ifma.si.lpw.imobiliaria.model.Cliente[ id=" + id + " ]";
+        return "br.edu.ifma.si.lpw.imobiliaria.model.Inquilino[ id=" + id + " ]";
     }
 }

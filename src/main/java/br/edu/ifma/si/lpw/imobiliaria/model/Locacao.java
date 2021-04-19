@@ -1,10 +1,10 @@
 package br.edu.ifma.si.lpw.imobiliaria.model;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,14 +19,18 @@ public class Locacao implements Serializable {
     @OneToOne
     private Imovel imovel;
     @ManyToOne
-    private Cliente cliente;
+    private Inquilino inquilino;
     private boolean ativo;
+    @DateTimeFormat
     private LocalDate inicioDoContrato;
+    @DateTimeFormat
     private LocalDate fimDoContrato;
     @Positive
     @Max(31)
     private Integer diaDoVencimento;
+    @Positive
     private BigDecimal percentualDaMulta;
+    @Positive
     private BigDecimal valorDoAluguel;
     @Length(max = 200)
     private String observacoes;
@@ -50,12 +54,12 @@ public class Locacao implements Serializable {
         this.imovel = imovel;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Inquilino getInquilino() {
+        return inquilino;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setInquilino(Inquilino inquilino) {
+        this.inquilino = inquilino;
     }
 
     public boolean isAtivo() {

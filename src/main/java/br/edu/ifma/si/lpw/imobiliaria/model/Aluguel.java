@@ -1,8 +1,10 @@
 package br.edu.ifma.si.lpw.imobiliaria.model;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -14,7 +16,9 @@ public class Aluguel {
     private Integer id;
     @OneToOne
     private Locacao locacao;
+    @DateTimeFormat
     private LocalDate dataDoPagamento;
+    @Positive
     private BigDecimal valorPago;
     @Length(max = 200)
     private String observacoes;

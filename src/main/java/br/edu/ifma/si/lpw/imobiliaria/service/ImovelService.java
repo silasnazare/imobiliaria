@@ -1,6 +1,5 @@
 package br.edu.ifma.si.lpw.imobiliaria.service;
 
-import br.edu.ifma.si.lpw.imobiliaria.model.Cliente;
 import br.edu.ifma.si.lpw.imobiliaria.model.Imovel;
 import br.edu.ifma.si.lpw.imobiliaria.repository.ImovelRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -20,13 +21,15 @@ public class Imovel implements Serializable {
     private String tipoDeImovel;
     @Length(max = 100)
     private String endereco;
-    @Positive
+    @PositiveOrZero
     private Integer quantidadeDeDormitorios;
-    @Positive
+    @PositiveOrZero
     private Integer quantidadeDeBanheiros;
-    @Positive
+    @PositiveOrZero
     private Integer quantidadeDeSuites;
+    @Positive
     private Integer metragem;
+    @Positive
     private BigDecimal valorSugerido;
     @Length(max = 200)
     private String observacoes;
