@@ -23,6 +23,10 @@ public class ImovelService {
         return imovelRepository.findAll(paginacao);
     }
 
+    public Page<Imovel> buscaPor(String endereco, Pageable paginacao) {
+        return imovelRepository.findByEnderecoContaining(endereco, paginacao);
+    }
+
     public Optional<Imovel> buscaPor(Integer id) {
         return imovelRepository.findById(id);
     }

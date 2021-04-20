@@ -30,9 +30,16 @@ public class ImovelController {
     }
 
     @GetMapping
-    public Page<Imovel> imoveis(@PageableDefault(sort = "id", direction = Sort.Direction.ASC, page = 0, size = 3) Pageable paginacao) {
-           return imovelService.buscaCom(paginacao);
-
+    public Page<Imovel> imoveis(@RequestParam(required = false) String endereco, @PageableDefault
+            (sort = "id", direction = Sort.Direction.ASC, page = 0, size = 3) Pageable paginacao) {
+        if (endereco == null) {
+            Page<Imovel> imovelPage = imovelService.buscaCom(paginacao);
+            return imovelPage;
+        }
+        else {
+            Page<Imovel> imovelPage = imovelService.buscaPor(endereco, paginacao);
+            return imovelPage;
+        }
     }
 
     @GetMapping("/{id}")
